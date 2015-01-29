@@ -1,0 +1,17 @@
+{
+  "name": "web-audio-synth",
+  "version": "0.0.1",
+  "description": "A multi-timbral polyphonic audio synthesis library written in JS",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "mkdir -p dist; browserify src/main.js -o dist/web-audio-synth.js",
+    "test": "mocha"
+  },
+  "author": "Jason A. Storey",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^8.1.1",
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  }
+}
