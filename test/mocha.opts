@@ -1,4 +1,4 @@
---require ./test/setup
+--require ./test/unit/setup
 --reporter spec
 --growl
 --colors
