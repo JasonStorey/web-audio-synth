@@ -9,6 +9,9 @@ function System() {
     }
 
     function getAudioContext() {
+        if(!audioContext) {
+            throw new Error(ERROR.SETUP_ERROR);
+        }
         return audioContext;
     }
 

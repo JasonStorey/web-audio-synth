@@ -7,4 +7,4 @@ chai.use(sinonChai);
 global.proxyquire = require('proxyquire');
 global.sinon = sinon;
 global.expect = chai.expect;
-global.SRC_DIR = '../src';
+global.SRC_DIR = process.cwd() + '/src';
