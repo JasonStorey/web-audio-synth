@@ -4,7 +4,7 @@
   "description": "A multi-timbral polyphonic audio synthesis library written in JS",
   "main": "src/main.js",
   "scripts": {
-    "build": "mkdir -p dist; browserify src/main.js -o dist/web-audio-synth.js",
+    "build": "mkdir -p dist && rm -rf dist/* && browserify src/main.js --standalone WebAudioSynth -o dist/web-audio-synth.js && cp -r test/manual/ dist",
     "test": "mocha"
   },
   "author": "Jason A. Storey",
