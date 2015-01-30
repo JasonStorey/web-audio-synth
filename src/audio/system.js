@@ -1,10 +1,23 @@
+var AudioContext = require('./audio-context'),
+    ERROR = require('../utils/error');
+
 function System() {
+    var audioContext;
+
     function init() {
-        // Does nothing... yet
+        audioContext = new AudioContext();
+    }
+
+    function getOutput() {
+        if(!audioContext) {
+            throw new Error(ERROR.SETUP_ERROR);
+        }
+        return audioContext.destination
     }
 
     return {
-        init: init
+        init: init,
+        getOutput: getOutput
     };
 }
 
