@@ -17,6 +17,12 @@ describe('System', function() {
         expect(AudioContext).to.have.been.calledOnce.calledWithNew;
     });
 
+    it('getAudioContext should return the AudioContext instance when initialised', function() {
+        system.init();
+        expect(system.getAudioContext()).to.be.an.instanceof(AudioContext);
+        expect(AudioContext).to.have.been.calledOnce;
+    });
+
     it('getOutput should return an audio destination node when initialised', function() {
         var destination = 'AudioDestinationNode';
         AudioContext.returns({

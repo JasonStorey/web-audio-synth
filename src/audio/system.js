@@ -8,6 +8,10 @@ function System() {
         audioContext = new AudioContext();
     }
 
+    function getAudioContext() {
+        return audioContext;
+    }
+
     function getOutput() {
         if(!audioContext) {
             throw new Error(ERROR.SETUP_ERROR);
@@ -17,6 +21,7 @@ function System() {
 
     return {
         init: init,
+        getAudioContext: getAudioContext,
         getOutput: getOutput
     };
 }
