@@ -1,5 +1,12 @@
+var window = require('../utils/window'),
+    ERROR = require('../utils/error');
+
 function AudioContext() {
-    console.log('In browser');
+    try {
+        this._audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) {
+        throw new Error(ERROR.UNSUPPORTED_FEATURE);
+    }
 }
 
 module.exports = AudioContext;
