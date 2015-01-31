@@ -1,5 +1,5 @@
 function AudioContext() {
-    console.log('In node');
+    console.log('In browser');
 }
 
 module.exports = AudioContext;

@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "A multi-timbral polyphonic audio synthesis library written in JS",
   "main": "src/main.js",
+  "browser": {
+    "./src/audio/audio-context.js": "./src/audio/audio-context-browser.js"
+  },
   "scripts": {
     "build": "mkdir -p dist && rm -rf dist/* && browserify src/main.js --standalone WebAudioSynth -o dist/web-audio-synth.js && cp -r test/manual/ dist",
     "test": "mocha"
