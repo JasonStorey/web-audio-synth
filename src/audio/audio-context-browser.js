@@ -10,4 +10,8 @@ function AudioContext() {
     }
 }
 
+AudioContext.prototype.createGain = function createGain() {
+    return this._audioContext.createGain();
+};
+
 module.exports = AudioContext;
