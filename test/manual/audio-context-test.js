@@ -1,5 +1,5 @@
 (function(WebAudioSynth) {
     // Nothing to test... yet.
-    WebAudioSynth();
+    WebAudioSynth.init();
 
 }(window.WebAudioSynth));

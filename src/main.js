@@ -4,4 +4,6 @@ function Main() {
     system.init();
 }
 
-module.exports = Main;
+module.exports = {
+    init: Main
+};
