@@ -1,40 +1,50 @@
 describe('System', function() {
-    var AudioContext,
+    var AudioContextConstructor,
+        audioContext,
         ERROR,
-        system;
+        system,
+        GainConstructor,
+        gain;
 
     beforeEach(function() {
-        AudioContext = sinon.stub();
+        audioContext = {destination: 'mockDestination'};
+        AudioContextConstructor = sinon.stub().returns(audioContext);
         ERROR = {};
+        gain = {
+            getAudioNode: sinon.stub(),
+            connect: sinon.stub()
+        };
+        GainConstructor = sinon.stub().returns(gain);
+
         system = proxyquire(SRC_DIR + '/audio/system', {
-            './audio-context': AudioContext,
-            '/utils/error': ERROR
+            './audio-context': AudioContextConstructor,
+            '../utils/error': ERROR,
+            './gain': GainConstructor
         });
     });
 
-    it('init should construct an AudioContext', function() {
+    it('init should construct an AudioContext and connect a master Gain node', function() {
         system.init();
-        expect(AudioContext).to.have.been.calledOnce.calledWithNew;
+        expect(AudioContextConstructor).to.have.been.calledOnce.calledWithNew;
+        expect(GainConstructor).to.have.been.calledOnce.calledWithNew;
+        expect(gain.connect).to.have.been.calledWith(audioContext.destination);
     });
 
     it('getAudioContext should return the AudioContext instance when system is initialised', function() {
         system.init();
-        expect(system.getAudioContext()).to.be.an.instanceof(AudioContext);
-        expect(AudioContext).to.have.been.calledOnce;
+        expect(system.getAudioContext()).to.equal(audioContext);
+        expect(AudioContextConstructor).to.have.been.calledOnce;
     });
 
     it('getAudioContext should throw a setup error when system is not initialised', function() {
         expect(system.getAudioContext).to.throw(ERROR.SETUP_ERROR);
     });
 
-    it('getOutput should return an audio destination node when system is initialised', function() {
-        var destination = 'AudioDestinationNode';
-        AudioContext.returns({
-            destination: destination
-        });
-
+    it('getOutput should return a master gain node when system is initialised', function() {
+        var mockAudioNode = 'an audio node';
+        gain.getAudioNode.returns(mockAudioNode);
         system.init();
-        expect(system.getOutput()).to.equal(destination);
+        expect(system.getOutput()).to.equal(mockAudioNode);
     });
 
     it('getOutput should throw a setup error when when system is not initialised', function() {

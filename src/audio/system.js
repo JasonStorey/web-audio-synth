@@ -1,11 +1,17 @@
 var AudioContext = require('./audio-context'),
-    ERROR = require('../utils/error');
+    ERROR = require('../utils/error'),
+    Gain = require('./gain');
 
 function System() {
-    var audioContext;
+    var audioContext,
+        masterGain;
 
     function init() {
         audioContext = new AudioContext();
+        masterGain = new Gain({
+            audioContext: audioContext
+        });
+        masterGain.connect(audioContext.destination);
     }
 
     function getAudioContext() {
@@ -19,7 +25,7 @@ function System() {
         if(!audioContext) {
             throw new Error(ERROR.SETUP_ERROR);
         }
-        return audioContext.destination
+        return masterGain.getAudioNode();
     }
 
     return {
